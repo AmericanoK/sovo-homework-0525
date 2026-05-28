@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 import uvicorn
 from src.routes.auth import router as auth_router
+from src.routes.todo import router as todo_router  # 👈 新增：导入待办事项路由
 # 导入你 models.py 里的 db 实例
 from src.models import db 
 
@@ -22,6 +23,8 @@ async def db_session_middleware(request, call_next):
 
 # 挂载认证路由
 app.include_router(auth_router)
+# 挂载待办事项路由
+app.include_router(todo_router) # 👈 新增：将待办事项路由挂载到服务中
 
 @app.get("/")
 async def root():
